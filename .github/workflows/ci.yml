@@ -1,0 +1,59 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Unit & Logic Tests
+    runs-on: macos-14
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run Core Logic Tests
+        run: |
+          swiftc -target arm64-apple-macos14.0 \
+            alarctiv/Models/Alarm.swift \
+            alarctiv/Models/ChallengePhrase.swift \
+            alarctiv/ViewModels/ChallengeViewModel.swift \
+            Tests/AlarctivLogicTests.swift \
+            -o ./test_runner
+          ./test_runner
+          rm -f ./test_runner
+
+  build-macos:
+    name: Build macOS Target
+    runs-on: macos-14
+    needs: test
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build macOS App
+        run: |
+          xcodebuild -scheme alarctiv \
+            -destination 'platform=macOS' \
+            -derivedDataPath ./build \
+            CODE_SIGNING_ALLOWED=NO \
+            build
+
+  build-ios:
+    name: Build iOS Target
+    runs-on: macos-14
+    needs: test
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build iOS Simulator App
+        run: |
+          xcodebuild -scheme alarctiv \
+            -destination 'generic/platform=iOS Simulator' \
+            -derivedDataPath ./build \
+            CODE_SIGNING_ALLOWED=NO \
+            build
