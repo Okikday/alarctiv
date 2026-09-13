@@ -17,12 +17,13 @@ jobs:
 
       - name: Run Core Logic Tests
         run: |
-          swiftc -target arm64-apple-macos14.0 \
+          swiftc \
             alarctiv/Models/Alarm.swift \
             alarctiv/Models/ChallengePhrase.swift \
             alarctiv/ViewModels/ChallengeViewModel.swift \
             Tests/AlarctivLogicTests.swift \
             -o ./test_runner
+          codesign -s - ./test_runner
           ./test_runner
           rm -f ./test_runner
 

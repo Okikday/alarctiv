@@ -1,4 +1,4 @@
-# Alarctiv ⏰⚡️
+# Alarctiv ⏰
 
 > **The alarm app that compulses you to wake up.**
 
