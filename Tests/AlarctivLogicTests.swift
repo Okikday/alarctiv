@@ -23,7 +23,7 @@ struct AlarctivLogicTests {
     
     private static func expect(_ condition: Bool, _ message: String, file: String = #file, line: Int = #line) {
         if !condition {
-            fputs("❌ Test Failure at \(file):\(line): \(message)\n", stderr)
+            fputs("Test Failure at \(file):\(line): \(message)\n", stderr)
             exit(1)
         }
     }
@@ -40,7 +40,7 @@ struct AlarctivLogicTests {
         let random1 = ChallengePhrase.random()
         let random2 = ChallengePhrase.random(excluding: random1)
         expect(random1.text != random2.text, "Exclusion randomizer should not return identical phrase")
-        print("  ✓ ChallengePhrase bank verified (\(phrases.count) phrases).")
+        print("ChallengePhrase bank verified (\(phrases.count) phrases).")
     }
     
     static func testChallengeViewModelExactMatching() {
@@ -61,7 +61,7 @@ struct AlarctivLogicTests {
         expect(vm.isCompleted, "Completed typed string should mark isCompleted")
         expect(vm.progress == 1.0, "Progress should be 1.0 on completion")
         expect(!vm.hasErrors, "Exact string should have no errors")
-        print("  ✓ Exact match verified.")
+        print("Exact match verified.")
     }
     
     static func testChallengeViewModelPartialMatching() {
@@ -77,7 +77,7 @@ struct AlarctivLogicTests {
         expect(!vm.isExactMatch, "Partial prefix should not match completely")
         expect(!vm.hasErrors, "Correct prefix should not have errors")
         expect(vm.progress > 0.1 && vm.progress < 0.5, "Progress should reflect typed fraction")
-        print("  ✓ Partial matching and progress bar calculation verified.")
+        print("Partial matching and progress bar calculation verified.")
     }
     
     static func testChallengeViewModelErrorDetection() {
@@ -91,7 +91,7 @@ struct AlarctivLogicTests {
         
         expect(vm.hasErrors, "Typo ('o' instead of 'a') must be detected as an error")
         expect(!vm.isExactMatch, "Typo cannot trigger match")
-        print("  ✓ Typo detection verified.")
+        print("Typo detection verified.")
     }
     
     static func testAntiPasteProtection() {
@@ -103,7 +103,7 @@ struct AlarctivLogicTests {
         vm.handleTextChange("Discipline equals freedom, stand up and get moving.")
         expect(vm.pasteBlockedWarning, "Instant bulk insertion should flag pasteBlockedWarning")
         expect(!vm.isExactMatch, "Pasted text should be rejected from completing the challenge")
-        print("  ✓ Anti-paste defense verified.")
+        print("Anti-paste defense verified.")
     }
     
     static func testAlarmModelFormatting() {
@@ -118,7 +118,7 @@ struct AlarctivLogicTests {
         expect(alarm.hour == 7, "Hour component should be 7")
         expect(alarm.minute == 30, "Minute component should be 30")
         expect(!alarm.formattedTime.isEmpty, "Formatted time string should not be empty")
-        print("  ✓ Alarm model formatting verified.")
+        print("Alarm model formatting verified.")
     }
     
     static func testAlarmCountdownCalculation() {
@@ -128,6 +128,6 @@ struct AlarctivLogicTests {
         
         let alarmDisabled = Alarm(time: Date().addingTimeInterval(3600), label: "Test Alarm", isEnabled: false)
         expect(alarmDisabled.remainingTimeDescription == "Disabled", "Disabled alarm should display 'Disabled'")
-        print("  ✓ Alarm remaining time calculation verified.")
+        print("Alarm remaining time calculation verified.")
     }
 }

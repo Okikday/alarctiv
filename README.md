@@ -6,6 +6,14 @@ Alarctiv is a cross-platform (macOS & iOS) alarm application built with modern *
 
 ---
 
+## Preview
+
+<div align="center">
+  <video src="assets/demo.mov" width="100%" controls loop muted playsinline></video>
+</div>
+
+---
+
 ## Features
 
 - **Compulsory Awakening Challenge**:
